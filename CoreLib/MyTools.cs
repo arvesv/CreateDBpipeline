@@ -2,6 +2,6 @@
 {
     public class MyTools
     {
-        public int Answer() => 42;
+        public static int Answer() => 42;
     }
 }

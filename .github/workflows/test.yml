@@ -3,19 +3,46 @@ name: Simple test pipeline
 on:
   push:
     branches:
-      - "main"
+      - main
   pull_request:
     branches:
       - main
   workflow_dispatch:
-   
+
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
+   
+    permissions:               # Githib-Azure OIDC requires access to token, and setting permissions resets default so we must give access to contents as well
+      contents: read
+      id-token: write
+      checks: write            # Test reporter requires this to be able to mark the build as checked 
+
 
     steps:
     - name: Checkout
-      uses: actions/checkout@3
+      uses: actions/checkout@v3
 
+    - name: Setup .NET Core SDK 
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x'
 
+    - name: Install dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal  --logger "trx" --results-directory "TestResults"
+
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()    # run this step even if previous step failed
+      with:
+          name: Tests            # Name of the check run which will be created
+          path: 'TestResults/*.trx'
+          reporter: dotnet-trx        # Format of test results
