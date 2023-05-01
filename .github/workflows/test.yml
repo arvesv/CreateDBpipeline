@@ -9,9 +9,17 @@ on:
       - main
   workflow_dispatch:
 
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
+   
+    permissions:               # Githib-Azure OIDC requires access to token, and setting permissions resets default so we must give access to contents as well
+      contents: read
+      id-token: write
+      checks: write            # Test reporter requires this to be able to mark the build as checked 
+
 
     steps:
     - name: Checkout
