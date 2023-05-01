@@ -6,7 +6,6 @@ namespace TestCoreLib
         public void Test1()
         {
             Assert.Equal(42, CoreLib.MyTools.Answer());
-
         }
     }
 }
