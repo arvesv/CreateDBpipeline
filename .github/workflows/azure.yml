@@ -25,5 +25,5 @@ jobs:
   
       - name: 'Run az commands'
         run: |
-          docker run hello-world
+          az group create -n ${{ vars.RGNAME}}  -l   ${{ vars.RGLOCATION }}
           
