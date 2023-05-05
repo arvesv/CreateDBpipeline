@@ -26,8 +26,9 @@ jobs:
       - name: 'Run az commands'
         run: |
           az group create -n ${{ vars.RGNAME }} -l ${{ vars.RGLOCATION }}
-          ls
-          
+          pwd
+          ls -l
+
 
       # Deploy Bicep file
       - name: deploy
