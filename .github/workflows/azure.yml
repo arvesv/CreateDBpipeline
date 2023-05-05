@@ -25,5 +25,16 @@ jobs:
   
       - name: 'Run az commands'
         run: |
-          docker run hello-world
-          
+          az group create -n ${{ vars.RGNAME }} -l ${{ vars.RGLOCATION }}
+
+      # Deploy Bicep file
+      - name: deploy
+        uses: azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          resourceGroupName: ${{ vars.RGNAME }}
+          template: ./main.bicep
+          parameters: 'storagePrefix=mystore storageSKU=Standard_LRS'
+          failOnStdErr: false
+
+
