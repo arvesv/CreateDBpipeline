@@ -1,6 +1,9 @@
 @minLength(3)
 @maxLength(11)
-param storagePrefix string
+param random string = newGuid()
+
+
+param randi guid
 
 @allowed([
   'Standard_LRS'
@@ -16,7 +19,7 @@ param storageSKU string = 'Standard_LRS'
 
 param location string = resourceGroup().location
 
-var uniqueStorageName = '${storagePrefix}${uniqueString(resourceGroup().id)}'
+var uniqueStorageName = '${storagePrefix}-${uniqueString(random)}'
 
 resource stg 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   name: uniqueStorageName
