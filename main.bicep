@@ -30,4 +30,8 @@ resource stg 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   }
 }
 
-output resourceName string = uniqueStorageName
+output resourceName string = stg.name
+output id string = stg.id
+
+
+

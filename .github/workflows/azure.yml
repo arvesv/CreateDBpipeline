@@ -30,8 +30,6 @@ jobs:
       - name: 'Run az commands'
         run: |
           az group create -n ${{ vars.RGNAME }} -l ${{ vars.RGLOCATION }}
-          pwd
-          ls -l
 
 
       # Deploy Bicep file
@@ -49,4 +47,8 @@ jobs:
       - name: 'Display result'
         run: echo ${{ steps.deploy.outputs.resourceName }}
 
-
+      - name: 'Delete resource'
+        run: |
+          echo ${{ steps.deploy.outputs.id }}
+          az resource delete -g ${{ vars.RGNAME }}  -n ${{ steps.deploy.outputs.resourceName }} --resource-type 'Microsoft.Storage/storageAccounts'
+      
