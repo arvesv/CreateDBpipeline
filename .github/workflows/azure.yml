@@ -45,7 +45,7 @@ jobs:
 
 
       - name: 'Display result'
-        run: echo ${{ steps.deploy.outputs.resourceName }}
+        run: echo ${{ steps.deploy.outputs.containerIPv4Address }}
 
       - name: 'Delete resource'
         run: |
