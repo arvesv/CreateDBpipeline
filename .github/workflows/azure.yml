@@ -50,5 +50,5 @@ jobs:
       - name: 'Delete resource'
         run: |
           echo ${{ steps.deploy.outputs.id }}
-          az resource delete -g ${{ vars.RGNAME }}  -n ${{ steps.deploy.outputs.resourceName }} --resource-type 'Microsoft.Storage/storageAccounts'
+          az resource delete -ids ${{ steps.deploy.outputs.id }}
       
