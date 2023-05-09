@@ -42,7 +42,7 @@ jobs:
           scope: resourcegroup
           resourceGroupName: ${{ vars.RGNAME }}
           template: ./main.bicep
-          parameters: 'storagePrefix=mystore storageSKU=Standard_LRS'
+          parameters: 'storagePrefix=mystore-${github.job} storageSKU=Standard_LRS'
           failOnStdErr: false
 
 
