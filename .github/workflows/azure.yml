@@ -50,5 +50,5 @@ jobs:
       - name: 'Delete resource'
         run: |
           echo ${{ steps.deploy.outputs.id }}
-          az resource delete -ids ${{ steps.deploy.outputs.id }}
+          az resource delete --ids ${{ steps.deploy.outputs.id }}
       
