@@ -47,6 +47,6 @@ jobs:
 
 
       - name: 'Display result'
-        run: echo ${{step.deploy.outputs.azure/arm-deploy@v1}}
+        run: echo ${{ steps.deploy.outputs.storageEndpoint }}
 
 
