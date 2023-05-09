@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Data;
+using Microsoft.Data.SqlClient;
 
 namespace CoreLib
 {
@@ -7,17 +8,15 @@ namespace CoreLib
         public static int Answer() => 42;
 
 
-        public static string[] DbWho(string connectionString)
+        public static IEnumerable<string> DbWho(string connectionString)
         {
             using var connection = new SqlConnection(connectionString);
-            using var dbCommand = connection.CreateCommand();
-            dbCommand.CommandText = "sp_who;";
-
-
-
-            return Array.Empty<string>();
-
-
+            connection.Open();
+            var dbCommand = connection.CreateCommand();
+            dbCommand.CommandText = "sp_databases;";
+            var reader = dbCommand.ExecuteReader(CommandBehavior.CloseConnection);
+            while (reader.Read())
+                yield return reader["database_name"].ToString()!;
         }
     }
 
