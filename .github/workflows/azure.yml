@@ -30,18 +30,25 @@ jobs:
       - name: 'Run az commands'
         run: |
           az group create -n ${{ vars.RGNAME }} -l ${{ vars.RGLOCATION }}
-          pwd
-          ls -l
 
 
       # Deploy Bicep file
       - name: deploy
+        id: deploy
         uses: azure/arm-deploy@v1
         with:
           scope: resourcegroup
           resourceGroupName: ${{ vars.RGNAME }}
           template: ./main.bicep
-          parameters: 'storagePrefix=mystore storageSKU=Standard_LRS'
+          parameters: 'storagePrefix=mystore${{github.run_id}} storageSKU=Standard_LRS'
           failOnStdErr: false
 
 
+      - name: 'Display result'
+        run: echo ${{ steps.deploy.outputs.resourceName }}
+
+      - name: 'Delete resource'
+        run: |
+          echo ${{ steps.deploy.outputs.id }}
+          az resource delete -g ${{ vars.RGNAME }}  -n ${{ steps.deploy.outputs.resourceName }} --resource-type 'Microsoft.Storage/storageAccounts'
+      
