@@ -30,4 +30,4 @@ resource stg 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   }
 }
 
-output resourceName string = uniqueStorageName
+output resourceName string = 'arve'

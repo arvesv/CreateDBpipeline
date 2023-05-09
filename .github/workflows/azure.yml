@@ -42,11 +42,11 @@ jobs:
           scope: resourcegroup
           resourceGroupName: ${{ vars.RGNAME }}
           template: ./main.bicep
-          parameters: 'storagePrefix=mystore${{github.job}} storageSKU=Standard_LRS'
+          parameters: 'storagePrefix=mystore${{github.run_id}} storageSKU=Standard_LRS'
           failOnStdErr: false
 
 
       - name: 'Display result'
-        run: echo ${{ steps.deploy.outputs.storageEndpoint }}
+        run: echo ${{ steps.deploy.outputs.resourceName }}
 
 
