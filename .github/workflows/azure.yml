@@ -36,6 +36,7 @@ jobs:
 
       # Deploy Bicep file
       - name: deploy
+        id: deploy
         uses: azure/arm-deploy@v1
         with:
           scope: resourcegroup
@@ -43,5 +44,9 @@ jobs:
           template: ./main.bicep
           parameters: 'storagePrefix=mystore storageSKU=Standard_LRS'
           failOnStdErr: false
+
+
+      - name: 'Display result'
+        run: echo ${{step.deploy.outputs.azure/arm-deploy@v1}}
 
 
