@@ -1,14 +1,14 @@
 @description('Name for the container group')
-param name string = 'mydb'
+param name string = 'acilinuxpublicipcontainergroup'
 
 @description('Location for all resources.')
 param location string = resourceGroup().location
 
 @description('Container image to deploy. Should be of the form repoName/imagename:tag for images stored in public Docker Hub, or a fully qualified URI for other registries. Images from private registries require additional registry credentials.')
-param image string = 'mcr.microsoft.com/azuredocs/aci-helloworld'
+param image string = 'mcr.microsoft.com/mssql/server:2022-latest'
 
 @description('Port to open on the container and the public IP address.')
-param port int = 80
+param port int = 1433
 
 @description('The number of CPU cores to allocate to the container.')
 param cpuCores int = 1
@@ -32,6 +32,16 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-09-01'
       {
         name: name
         properties: {
+          environmentVariables: [
+            {
+              name: 'ACCEPT_EULA'
+              value: 'string'
+            },{
+              name: 'MSSQL_SA_PASSWORD'
+              secureValue: 'Napoleon@Helena'
+            }
+          ]
+         
           image: image
           ports: [
             {
@@ -64,6 +74,3 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-09-01'
 
 output containerIPv4Address string = containerGroup.properties.ipAddress.ip
 output id string = containerGroup.id
-
-
-
