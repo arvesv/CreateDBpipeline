@@ -33,7 +33,7 @@ jobs:
 
 
       # Deploy Bicep file
-      - name: deploy
+      - name: 'Deploy Database to Container Instance'
         id: deploy
         uses: azure/arm-deploy@v1
         with:
