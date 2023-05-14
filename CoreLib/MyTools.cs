@@ -16,7 +16,7 @@ namespace CoreLib
             dbCommand.CommandText = "sp_databases;";
             var reader = dbCommand.ExecuteReader(CommandBehavior.CloseConnection);
             while (reader.Read())
-                yield return reader["database_name"].ToString()!;
+                yield return reader.GetString("database_name");
         }
     }
 
