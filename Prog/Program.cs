@@ -11,7 +11,7 @@ var builder = new ConfigurationBuilder()
 var configuration = builder.Build();
 
 
-Console.WriteLine(configuration["dbconn"]);
+string? s = configuration["dbconn"];
 
 
 
@@ -21,7 +21,7 @@ Console.WriteLine(configuration["dbconn"]);
 
 Console.WriteLine($"Hello, World! The answer is {CoreLib.MyTools.Answer()} ");
 
-var z = CoreLib.MyTools.DbWho("server=localhost;UID=sa;PWD=yourStrong(!)Password;TrustServerCertificate=true");
+var z = CoreLib.MyTools.DbWho(s);
 
 var y = z.ToArray();
 Console.WriteLine(y);
