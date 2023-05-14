@@ -48,7 +48,7 @@ jobs:
         run: echo ${{ steps.deploy.outputs.containerIPv4Address }}
 
       - name: 'Run benchmark'
-        run:  dotnet run Prog
+        run:  dotnet run --project Prog
         env:
           DBCONN: 'server=${{ steps.deploy.outputs.containerIPv4Address }};UID=sa;PWD=Napoleon@Helena'
           
