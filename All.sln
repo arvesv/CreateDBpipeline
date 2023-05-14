@@ -7,10 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreLib", "CoreLib\CoreLib.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prog", "Prog\Prog.csproj", "{66BA506E-5D4F-4F3A-BAE1-95552D6684CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCoreLib", "TestCoreLib\TestCoreLib.csproj", "{EC96F692-AD57-4E4F-8B11-2E29463F1594}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCoreLib", "TestCoreLib\TestCoreLib.csproj", "{EC96F692-AD57-4E4F-8B11-2E29463F1594}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{5224C5A5-7948-4B3F-BB32-BD07A692D092}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\azure.yml = .github\workflows\azure.yml
 		.github\workflows\test.yml = .github\workflows\test.yml
 	EndProjectSection
 EndProject

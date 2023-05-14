@@ -33,22 +33,32 @@ jobs:
 
 
       # Deploy Bicep file
-      - name: deploy
+      - name: 'Deploy Database to Container Instance'
         id: deploy
         uses: azure/arm-deploy@v1
         with:
           scope: resourcegroup
           resourceGroupName: ${{ vars.RGNAME }}
           template: ./main.bicep
-          parameters: 'storagePrefix=mystore${{github.run_id}} storageSKU=Standard_LRS'
+          parameters: 'name=u4dbx'
           failOnStdErr: false
 
 
       - name: 'Display result'
-        run: echo ${{ steps.deploy.outputs.resourceName }}
+        run: echo ${{ steps.deploy.outputs.containerIPv4Address }}
+
+      - name: 'Run benchmark'
+        run: |
+            env
+            echo 'hei'
+            dotnet run --project Prog
+        env:
+          DBCONN: 'server=${{ steps.deploy.outputs.containerIPv4Address }};UID=sa;PWD=Napoleon@Helena;TrustServerCertificate=true'
+          
+        
 
       - name: 'Delete resource'
         run: |
           echo ${{ steps.deploy.outputs.id }}
-          az resource delete -g ${{ vars.RGNAME }}  -n ${{ steps.deploy.outputs.resourceName }} --resource-type 'Microsoft.Storage/storageAccounts'
+          # az resource delete --ids ${{ steps.deploy.outputs.id }}
       
