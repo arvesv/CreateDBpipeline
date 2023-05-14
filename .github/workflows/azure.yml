@@ -47,6 +47,13 @@ jobs:
       - name: 'Display result'
         run: echo ${{ steps.deploy.outputs.containerIPv4Address }}
 
+      - name: 'Run benchmark'
+        run:  dotnet run Prog
+        env:
+          DBCONN: 'server=${{ steps.deploy.outputs.containerIPv4Address }};UID=sa;PWD=Napoleon@Helena'
+          
+        
+
       - name: 'Delete resource'
         run: |
           echo ${{ steps.deploy.outputs.id }}
