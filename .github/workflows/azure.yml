@@ -49,7 +49,7 @@ jobs:
 
       - name: 'Run benchmark'
         run: |
-            echo $env:DBCONN
+            env
             echo 'hei'
             dotnet run --project Prog
         env:
