@@ -1,4 +1,4 @@
-name: Talk to Azure
+name: Run Docker
 
 on:
   workflow_dispatch
