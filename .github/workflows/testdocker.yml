@@ -1,0 +1,14 @@
+name: Talk to Azure
+
+on:
+  workflow_dispatch
+
+jobs:
+  runconatier:
+    runs-on: windows-latest
+
+    steps:
+      - name: 'run hello workd'
+        run: docker run hello-world
+        
+
